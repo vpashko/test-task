@@ -68,7 +68,7 @@ const BarChart = ( {initialData} ) => {
           .duration(300)
           .attr('height', d => y(+d.pay_package))
           .attr('y', d => dimensions.height - y(+d.pay_package))
-          .delay((d, i) => i * 100);
+          .delay((d, i) => i * 50);
 
         rects.on('mouseenter', (event, d) => {
           tooltip.transition().duration(0)
@@ -100,21 +100,23 @@ const BarChart = ( {initialData} ) => {
         .attr('x', d => x(d.pay_package)!)
         .attr('y', dimensions.height)
         .attr('fill', 'orange')
-        .attr('cursor', 'pointer');
+        .attr('cursor', 'pointer')
+        .attr('opacity', 0);
 
       newRects.transition()
-        .duration(300)
+        .duration(200)
         .attr('height', d => y(+d.pay_package))
         .attr('y', d => dimensions.height - y(+d.pay_package))
-        .delay((d, i) => i * 100);
+        .delay((d, i) => i * 50)
+        .attr('opacity', 1);
 
       rects.transition()
-        .duration(300)
+        .duration(200)
         .attr('width', x.bandwidth())
         .attr('height', d => y(+d.pay_package))
         .attr('x', d => x(d.pay_package)!)
         .attr('y', d => dimensions.height - y(+d.pay_package))
-        .delay((d, i) => i * 100)
+        .delay((d, i) => i * 50)
         .attr('opacity', 1)
     }
   }

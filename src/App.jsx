@@ -1,10 +1,10 @@
-import { fetchData } from './utils/fetchData';
 import { getSelection } from './utils/getSelection';
 import { useEffect, useState } from 'react';
 
 import './App.css'
 import BarChart from './components/charts/chart';
 import Dropdown from './components/ui/dropdown';
+import { fetchData } from './utils/fetchData';
 
 const path2022 = '/payments_on_contracts_pharmacy_2022.csv';
 const path2023 = '/payments_on_contracts_pharmacy_2023.csv';
@@ -33,23 +33,25 @@ const years = [
 
 function App() {
   const [data, setData] = useState([]);
+  const [selection, setSelection] = useState([]);
   const [startDate, setStartDate] = useState([1, 2022]);
   const [endDate, setEndDate] = useState([12, 2023]);
 
   useEffect(() => {
-    fetchData({ path: path2022 })
-      .then((data2022) => {
-        fetchData({ path: path2023 }).then((data2023) => {
-          setData(getSelection({ data: [...data2022, ...data2023], start: startDate, end: endDate })); 
-        });
+    fetchData({ path: path2022 }).then((data2022) => {
+      fetchData({ path: path2023 }).then((data2023) => {
+        setData([...data2022, ...data2023]);
+      });
     });
-  }, [startDate, endDate]);
+  }, []);
 
-  console.log(data);
+  useEffect(() => {
+    setSelection(getSelection({ data, start: startDate, end: endDate }));
+  }, [data, startDate, endDate]);
 
   return (
     <div className="App">
-      <div className="slection">
+      <div className="selection">
         <h1>Bar Chart</h1>
 
         <p>Оберіть початкову дату</p>
@@ -77,7 +79,7 @@ function App() {
         />
       </div>
 
-      {data && <BarChart initialData={data} />}
+      {data && <BarChart initialData={selection} />}
 
     </div>
   )
