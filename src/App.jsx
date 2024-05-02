@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import BarChart from './components/charts/chart';
 import Dropdown from './components/ui/dropdown';
+import { Oval } from 'react-loader-spinner';
 import { fetchData } from './utils/fetchData';
 
 const path2022 = '/payments_on_contracts_pharmacy_2022.csv';
@@ -50,7 +51,13 @@ function App() {
   }, [data, startDate, endDate]);
 
   return (
-    <div className="App">
+    <>
+    {data.length === 0 ? (
+      <div className="loader">
+        <Oval color='orange' height={100} width={100} />
+      </div>
+    ) : (
+      <div className="App">
       <div className="selection">
         <h1>Bar Chart</h1>
 
@@ -81,7 +88,10 @@ function App() {
 
       {data && <BarChart initialData={selection} />}
 
+
     </div>
+    )}
+    </>
   )
 }
 
