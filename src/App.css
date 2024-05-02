@@ -9,3 +9,9 @@
 .selection {
   margin-bottom: 10px;
 }
+
+p {
+  color: #333;
+  font-size: 1.5em;
+  font-family: 'monospace';
+}
