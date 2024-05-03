@@ -13,6 +13,6 @@
   }
 }
 
-rect:active{
-  fill: #61dafb;
+.rect {
+  fill: #b81717;
 }
